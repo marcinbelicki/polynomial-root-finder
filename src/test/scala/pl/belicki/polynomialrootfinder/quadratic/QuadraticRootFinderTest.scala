@@ -15,6 +15,14 @@ class QuadraticRootFinderTest extends AnyWordSpecLike {
       ) shouldBe List(-1.3819660112501053, -3.6180339887498945)
     }
 
+    "properly find no roots for given polynomial" in {
+      val quadraticPolynomial = QuadraticPolynomial(a = 0.4, b = -1.2, c = 1.5)
+
+      QuadraticPolynomialRootFinder.findRoots(
+        quadraticPolynomial
+      ) shouldBe empty
+    }
+
   }
 
 }
