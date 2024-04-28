@@ -23,6 +23,14 @@ class QuadraticRootFinderTest extends AnyWordSpecLike {
       ) shouldBe empty
     }
 
+    "properly find only one root for the simple case" in {
+      val quadraticPolynomial = QuadraticPolynomial(a = 1, b = 0, c = 0)
+
+      QuadraticPolynomialRootFinder.findRoots(
+        quadraticPolynomial
+      ) shouldBe List(0)
+    }
+
   }
 
 }
