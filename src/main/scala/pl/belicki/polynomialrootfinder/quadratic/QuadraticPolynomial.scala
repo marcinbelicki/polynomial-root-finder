@@ -6,4 +6,7 @@ case class QuadraticPolynomial(
   a: Double,
   b: Double,
   c: Double
-) extends Polynomial
+) extends Polynomial {
+
+  override lazy val coefficients: List[Double] = List(a, b, c)
+}
