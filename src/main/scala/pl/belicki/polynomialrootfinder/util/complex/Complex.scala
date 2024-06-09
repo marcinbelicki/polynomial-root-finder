@@ -62,6 +62,10 @@ case class Complex(
       y = y / double
     )
   }
+
+  def equals[NUM: Numeric](num: NUM): Boolean =
+    y == 0 && implicitly[Numeric[NUM]].toDouble(num) == x
+  
 }
 
 object Complex {
@@ -78,7 +82,7 @@ object Complex {
   }
 
   def expImaginary(imaginary: Double): Complex =
-    Complex(
+    apply(
       x = Math.cos(imaginary),
       y = Math.sin(imaginary)
     )
@@ -95,7 +99,7 @@ object Complex {
   }
 
   def exponential(abs: Double, arg: Double): Complex =
-    Complex(
+    apply(
       x = Math.cos(arg) * abs,
       y = Math.sin(arg) * abs
     )
@@ -120,11 +124,24 @@ object Complex {
 
       val multiplier = double / denominator
 
-      Complex(
+      apply(
         x = complex.x * multiplier,
         y = complex.y * multiplier
       )
     }
 
   }
+
+  def real[NUM: Numeric](num: NUM): Complex = apply(
+    x = implicitly[Numeric[NUM]].toDouble(num),
+    y = 0
+  )
+
+  def imaginary[NUM: Numeric](num: NUM): Complex = apply(
+    x = 0,
+    y = implicitly[Numeric[NUM]].toDouble(num)
+  )
+
+  val i = imaginary(1)
+
 }
