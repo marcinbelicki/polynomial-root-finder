@@ -15,6 +15,15 @@ class CubicRootFinderTest extends AnyWordSpecLike {
           d = 0
         )
       ) shouldBe List(0)
+
+      CubicPolynomialRootFinder.findRootsOfLegitPolynomial(
+        CubicPolynomial(
+          a = 1,
+          b = 0,
+          c = 0,
+          d = -1
+        )
+      ) shouldBe List(1)
     }
   }
 }
