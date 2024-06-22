@@ -19,6 +19,15 @@ object CubicPolynomialRootFinder
 
     lazy val sigma = Math.pow(3 * polynomial.a, -1)
 
+    if (tau == 0) {
+      val x1 = sigma * (Math.pow(q, 1d / 3) - polynomial.b)
+
+      if (polynomial.b == 0) return List(x1)
+      if (q == 0) return List(x1, -sigma * 0.5 * polynomial.b)
+
+      return List(x1)
+    }
+
     if (tau < 0) {
       val B = -q / (2 * tau * Math.sqrt(Math.abs(tau)))
 
@@ -26,8 +35,8 @@ object CubicPolynomialRootFinder
 
       val phi = Math.signum(B) * Math.PI * 0.5
 
-      val R3minus = Math.pow(R, 1 / 3) - Math.pow(R, -1 / 3)
-      val R3plus = Math.pow(R, 1 / 3) + Math.pow(R, -1 / 3)
+      val R3minus = Math.pow(R, 1d / 3) - Math.pow(R, -1d / 3)
+      val R3plus = Math.pow(R, 1d / 3) + Math.pow(R, -1d / 3)
 
       val x1 = sigma * (Math.signum(B) * Math.sqrt(
         Math.abs(tau)
@@ -76,8 +85,8 @@ object CubicPolynomialRootFinder
 
     val R = absA + Math.sqrt(Math.abs(Math.pow(A, 2) - 1))
 
-    val R3minus = Math.pow(R, 1 / 3) - Math.pow(R, -1 / 3)
-    val R3plus = Math.pow(R, 1 / 3) + Math.pow(R, -1 / 3)
+    val R3minus = Math.pow(R, 1d / 3) - Math.pow(R, -1d / 3)
+    val R3plus = Math.pow(R, 1d / 3) + Math.pow(R, -1d / 3)
 
     val x1 = sigma * (Math.signum(A) * Math.sqrt(tau) * R3plus - polynomial.b)
 
