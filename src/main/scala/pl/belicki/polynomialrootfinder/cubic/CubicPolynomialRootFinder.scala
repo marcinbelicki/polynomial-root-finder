@@ -88,6 +88,7 @@ object CubicPolynomialRootFinder
     lazy val imaginaryPart = Math.sqrt(3) * 0.5 * Math.sqrt(tau) * R3plus
 
     if (imaginaryPart != 0) return List(x1)
+
     List(x1, realPart)
   }
 
