@@ -25,5 +25,30 @@ class CubicRootFinderTest extends AnyWordSpecLike {
         )
       ) shouldBe List(1)
     }
+
+    "properly calculate the result for more complex case" in {
+      CubicPolynomialRootFinder.findRootsOfLegitPolynomial(
+        CubicPolynomial(
+          a = 1,
+          b = 1,
+          c = 1,
+          d = 1
+        )
+      ) shouldBe List(-1)
+
+      CubicPolynomialRootFinder.findRootsOfLegitPolynomial(
+        CubicPolynomial(
+          a = -0.4,
+          b = -0.9,
+          c = 1,
+          d = 1
+        )
+      ) shouldBe List(
+        -2.821973855166888,
+        -0.6977270845301624,
+        1.2697009396970502
+      )
+
+    }
   }
 }
