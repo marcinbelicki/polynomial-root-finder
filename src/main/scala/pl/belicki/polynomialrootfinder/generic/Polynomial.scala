@@ -1,5 +1,7 @@
 package pl.belicki.polynomialrootfinder.generic
 
+import scala.annotation.tailrec
+
 trait Polynomial {
 
   def a: Double
@@ -12,6 +14,7 @@ trait Polynomial {
 
   def calculateValue(x: Double): Double = {
 
+    @tailrec
     def helper(
         coefficients: List[Double],
         exponent: Int,
