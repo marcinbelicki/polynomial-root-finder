@@ -81,16 +81,59 @@ object QuatricPolynomialRootFinder
 
     val specialCaseRoot = 0.25 * Math.pow(neumark.b, 2) / neumark.a
 
-    if (
-      cubicRoots
+    def quadratics: List[QuadraticPolynomial] = {
+
+      val equality = cubicRoots
         .map(_ - specialCaseRoot)
         .map(Math.abs)
         .exists(_ < equalityThreshold)
-    ) return List() // TODO correct this
 
-    cubicRoots.minOption
-      .flatMap(calculateNeumarkCoefficients)
-      .fold[List[QuadraticPolynomial]](Nil)(calculateQuadraticsForCoefficients)
+      lazy val eCase =
+        neumark.a * Math.pow(neumark.d, 2) * Math.pow(
+          neumark.b,
+          -2
+        ) // TODO i guess one can assume B != 0 (?) but Neumark doesnt prove it anywhere
+
+      if (!equality)
+        return cubicRoots.minOption
+          .flatMap(calculateNeumarkCoefficients)
+          .fold[List[QuadraticPolynomial]](Nil)(
+            calculateQuadraticsForCoefficients
+          )
+
+      if (neumark.e > eCase) return Nil
+
+      if (neumark.e == eCase)
+        return List(
+          QuadraticPolynomial(
+            a = 1,
+            b = 0.5 * neumark.b / neumark.a,
+            c = neumark.d / neumark.b
+          )
+        )
+
+      val inSqrt = Math.pow(neumark.d, 2) * Math.pow(
+        neumark.b,
+        -2
+      ) - neumark.e / neumark.a
+
+      if (inSqrt < 0) return Nil
+      List(
+        QuadraticPolynomial(
+          a = 1,
+          b = 0.5 * neumark.b / neumark.a,
+          c = neumark.d / neumark.b + Math.sqrt(inSqrt)
+        ),
+        QuadraticPolynomial(
+          a = 1,
+          b = 0.5 * neumark.b / neumark.a,
+          c = neumark.d / neumark.b - Math.sqrt(inSqrt)
+        )
+      )
+
+    }
+
+    quadratics
       .flatMap(QuadraticPolynomialRootFinder.findRoots)
   }
 
