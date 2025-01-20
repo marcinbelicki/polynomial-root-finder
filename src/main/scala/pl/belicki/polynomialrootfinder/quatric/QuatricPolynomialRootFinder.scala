@@ -49,7 +49,6 @@ object QuatricPolynomialRootFinder
 
     def calculateNeumarkCoefficients(x: Double) = {
       val inSqrt = calculateInSqrt(x)
-      println(inSqrt)
       lazy val sqrt = Math.sqrt(inSqrt)
 
       Option.when(inSqrt >= 0) {

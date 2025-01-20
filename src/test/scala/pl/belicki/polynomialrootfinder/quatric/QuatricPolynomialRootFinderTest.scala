@@ -28,10 +28,33 @@ class QuatricPolynomialRootFinderTest extends AnyWordSpecLike {
         b = 2,
         c = 3,
         d = 4,
-        e = - 5
+        e = -5
       )
 
-      QuatricPolynomialRootFinder.findRoots(quatricPolynomial) shouldBe empty
+      QuatricPolynomialRootFinder.findRoots(quatricPolynomial) shouldBe List(
+        0.6841243194530686,
+        -2.059142444568353
+      )
+
+    }
+
+    "find four roots" in {
+
+      val quatricPolynomial = QuatricPolynomial(
+        a = -0.6,
+        b = -1.5,
+        c = 5.6,
+        d = 1,
+        e = -4.4
+      )
+
+      QuatricPolynomialRootFinder.findRoots(quatricPolynomial) shouldBe
+        List(
+          -0.9058249943284854,
+          -4.435486608748547,
+          1.8600192484925686,
+          0.981292354584464
+        )
 
     }
   }
