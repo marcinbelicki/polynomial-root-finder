@@ -36,20 +36,20 @@ object QuatricPolynomialRootFinder
       d = -neumark.b * neumark.c * neumark.d + Math.pow(
         neumark.b,
         2
-      ) * neumark.e - neumark.a * Math.pow(neumark.d, 2)
+      ) * neumark.e + neumark.a * Math.pow(neumark.d, 2)
     )
 
     val cubicRoots = CubicPolynomialRootFinder
       .findRootsOfLegitPolynomial(
         resolventCubicPolynomial
       )
-      .to(LazyList)
 
     def calculateInSqrt(x: Double): Double =
       Math.pow(neumark.b, 2) - 4 * neumark.a * x
 
     def calculateNeumarkCoefficients(x: Double) = {
       val inSqrt = calculateInSqrt(x)
+      println(inSqrt)
       lazy val sqrt = Math.sqrt(inSqrt)
 
       Option.when(inSqrt >= 0) {
