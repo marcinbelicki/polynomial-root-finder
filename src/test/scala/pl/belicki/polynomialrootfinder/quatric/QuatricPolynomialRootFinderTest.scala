@@ -74,6 +74,23 @@ class QuatricPolynomialRootFinderTest extends AnyWordSpecLike {
         )
 
     }
+
+    "find one root for zero case" in {
+
+      val quatricPolynomial = QuatricPolynomial(
+        a = 1,
+        b = 0,
+        c = 0,
+        d = 0,
+        e = 0
+      )
+
+      QuatricPolynomialRootFinder.findRoots(quatricPolynomial) shouldBe
+        List(
+          0
+        )
+
+    }
   }
 
 }
