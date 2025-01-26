@@ -39,7 +39,6 @@ class QuatricPolynomialRootFinderTest extends AnyWordSpecLike {
     }
 
     "find four roots" in {
-
       val quatricPolynomial = QuatricPolynomial(
         a = -0.6,
         b = -1.5,
@@ -54,6 +53,24 @@ class QuatricPolynomialRootFinderTest extends AnyWordSpecLike {
           -4.435486608748547,
           1.8600192484925686,
           0.981292354584464
+        )
+
+    }
+
+    "find two roots in simple case" in {
+
+      val quatricPolynomial = QuatricPolynomial(
+        a = 1,
+        b = 0,
+        c = 0,
+        d = 0,
+        e = -1
+      )
+
+      QuatricPolynomialRootFinder.findRoots(quatricPolynomial) shouldBe
+        List(
+          1,
+          -1
         )
 
     }

@@ -17,6 +17,23 @@ object QuatricPolynomialRootFinder
   override protected def findRootsIfLegit(
       polynomial: QuatricPolynomial
   ): List[Double] = {
+    if (polynomial.e == 0) {
+      val cubicPolynomial = CubicPolynomial(
+        a = polynomial.a,
+        b = polynomial.b,
+        c = polynomial.c,
+        d = polynomial.d
+      )
+      val certainRoot = 0d
+
+      return CubicPolynomialRootFinder
+        .findRootsOfLegitPolynomial(
+          cubicPolynomial
+        )
+        .prepended(certainRoot)
+        .distinct
+    }
+
     val neumark =
       if (polynomial.a > 0) polynomial
       else
@@ -88,12 +105,6 @@ object QuatricPolynomialRootFinder
         .map(Math.abs)
         .exists(_ < equalityThreshold)
 
-      lazy val eCase =
-        neumark.a * Math.pow(neumark.d, 2) * Math.pow(
-          neumark.b,
-          -2
-        ) // TODO i guess one can assume B != 0 (?) but Neumark doesnt prove it anywhere
-
       if (!equality)
         return cubicRoots.minOption
           .flatMap(calculateNeumarkCoefficients)
@@ -101,36 +112,25 @@ object QuatricPolynomialRootFinder
             calculateQuadraticsForCoefficients
           )
 
-      if (neumark.e > eCase) return Nil
+      val inSqrt =
+        Math.pow(neumark.c - specialCaseRoot, 2) - 4 * neumark.a * neumark.e
 
-      if (neumark.e == eCase)
-        return List(
-          QuadraticPolynomial(
-            a = 1,
-            b = 0.5 * neumark.b / neumark.a,
-            c = neumark.d / neumark.b
-          )
-        )
+      lazy val sqrt = Math.sqrt(inSqrt)
 
-      val inSqrt = Math.pow(neumark.d, 2) * Math.pow(
-        neumark.b,
-        -2
-      ) - neumark.e / neumark.a
+      if (inSqrt < 0) return List.empty
 
-      if (inSqrt < 0) return Nil
-      List(
-        QuadraticPolynomial(
-          a = 1,
-          b = 0.5 * neumark.b / neumark.a,
-          c = neumark.d / neumark.b + Math.sqrt(inSqrt)
-        ),
-        QuadraticPolynomial(
-          a = 1,
-          b = 0.5 * neumark.b / neumark.a,
-          c = neumark.d / neumark.b - Math.sqrt(inSqrt)
-        )
+      val neumarkCoefficients = NeumarkCoefficients(
+        G =
+          0.5 * (neumark.b + (neumark.b * (neumark.c - specialCaseRoot) - 2 * neumark.a * neumark.d)
+            / sqrt),
+        g =
+          0.5 * (neumark.b - (neumark.b * (neumark.c - specialCaseRoot) - 2 * neumark.a * neumark.d)
+            / sqrt),
+        H = 0.5 * (neumark.c - specialCaseRoot + sqrt),
+        h = 0.5 * (neumark.c - specialCaseRoot - sqrt)
       )
 
+      calculateQuadraticsForCoefficients(neumarkCoefficients)
     }
 
     quadratics
