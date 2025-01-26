@@ -3,7 +3,7 @@ package pl.belicki.polynomialrootfinder.quadratic
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatest.matchers.should.Matchers._
 
-class QuadraticRootFinderTest extends AnyWordSpecLike {
+class QuadraticPolynomialRootFinderTest extends AnyWordSpecLike {
 
   "QuadraticRootFinder" must {
 

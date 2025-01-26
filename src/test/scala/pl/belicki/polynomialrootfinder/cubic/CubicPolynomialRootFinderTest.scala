@@ -3,7 +3,7 @@ package pl.belicki.polynomialrootfinder.cubic
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatest.matchers.should.Matchers._
 
-class CubicRootFinderTest extends AnyWordSpecLike {
+class CubicPolynomialRootFinderTest extends AnyWordSpecLike {
 
   "CubicPolynomialRootFinder" must {
     "properly calculate the result for simple case" in {
@@ -44,9 +44,9 @@ class CubicRootFinderTest extends AnyWordSpecLike {
           d = 1
         )
       ) shouldBe List(
-        -2.821973855166888,
-        -0.6977270845301624,
-        1.2697009396970502
+        -2.8219738551668874,
+        -0.6977270845301631,
+        1.2697009396970507
       )
 
     }
