@@ -33,8 +33,6 @@ object CubicPolynomialRootFinder
 
       val R = Math.abs(B) + Math.sqrt(Math.pow(B, 2) + 1)
 
-      val phi = Math.signum(B) * Math.PI * 0.5
-
       val R3minus = Math.pow(R, 1d / 3) - Math.pow(R, -1d / 3)
       val R3plus = Math.pow(R, 1d / 3) + Math.pow(R, -1d / 3)
 
@@ -57,8 +55,6 @@ object CubicPolynomialRootFinder
     val sqrtTau = Math.sqrt(tau)
 
     val alpha = 2 * tau * sqrtTau / (27 * Math.pow(polynomial.a, 2))
-    val beta = 2 * sqrtTau / (3 * polynomial.a)
-    val gamma = -polynomial.b / (3 * polynomial.a)
     val delta = q / (27 * Math.pow(polynomial.a, 2))
 
     val A = delta / alpha
@@ -85,7 +81,6 @@ object CubicPolynomialRootFinder
 
     val R = absA + Math.sqrt(Math.abs(Math.pow(A, 2) - 1))
 
-    val R3minus = Math.pow(R, 1d / 3) - Math.pow(R, -1d / 3)
     val R3plus = Math.pow(R, 1d / 3) + Math.pow(R, -1d / 3)
 
     val x1 = sigma * (Math.signum(A) * Math.sqrt(tau) * R3plus - polynomial.b)
