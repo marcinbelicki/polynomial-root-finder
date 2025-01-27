@@ -82,19 +82,7 @@ object QuatricPolynomialRootFinder
 
     def calculateQuadraticsForCoefficients(
         neumarkCoefficients: NeumarkCoefficients
-    ) =
-      List(
-        QuadraticPolynomial(
-          a = neumark.a,
-          b = neumarkCoefficients.G,
-          c = neumarkCoefficients.H
-        ),
-        QuadraticPolynomial(
-          a = neumark.a,
-          b = neumarkCoefficients.g,
-          c = neumarkCoefficients.h
-        )
-      )
+    ) = neumarkCoefficients.calculateQuadratics(neumark.a)
 
     val specialCaseRoot = 0.25 * Math.pow(neumark.b, 2) / neumark.a
 
@@ -144,7 +132,20 @@ object QuatricPolynomialRootFinder
       g: Double,
       H: Double,
       h: Double
-  )
+  ) {
+    def calculateQuadratics(a: Double): List[QuadraticPolynomial] = List(
+      QuadraticPolynomial(
+        a = a,
+        b = G,
+        c = H
+      ),
+      QuadraticPolynomial(
+        a = a,
+        b = g,
+        c = h
+      )
+    )
+  }
 
   override protected def fallbackFinder
       : PolynomialRootFinder[CubicPolynomial, _] = CubicPolynomialRootFinder
