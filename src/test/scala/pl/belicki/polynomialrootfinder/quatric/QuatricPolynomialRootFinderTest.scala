@@ -91,6 +91,24 @@ class QuatricPolynomialRootFinderTest extends AnyWordSpecLike {
         )
 
     }
+
+    "x^4 + x = 0" in {
+
+      val quatricPolynomial = QuatricPolynomial(
+        a = 1,
+        b = 0,
+        c = 0,
+        d = 1,
+        e = 0
+      )
+
+      QuatricPolynomialRootFinder.findRoots(quatricPolynomial) shouldBe
+        List(
+          0,
+          -1
+        )
+
+    }
   }
 
 }
