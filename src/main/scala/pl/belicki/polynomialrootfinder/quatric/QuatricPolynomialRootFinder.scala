@@ -1,5 +1,6 @@
 package pl.belicki.polynomialrootfinder.quatric
 
+import pl.belicki.polynomialrootfinder.ApproxEquality
 import pl.belicki.polynomialrootfinder.cubic.{
   CubicPolynomial,
   CubicPolynomialRootFinder
@@ -88,10 +89,8 @@ object QuatricPolynomialRootFinder
 
     def quadratics: List[QuadraticPolynomial] = {
 
-      val equality = cubicRoots
-        .map(_ - specialCaseRoot)
-        .map(Math.abs)
-        .exists(_ < equalityThreshold)
+      val equality =
+        cubicRoots.exists(ApproxEquality.equals(_, specialCaseRoot))
 
       if (!equality)
         return cubicRoots.minOption
@@ -124,8 +123,6 @@ object QuatricPolynomialRootFinder
     quadratics
       .flatMap(QuadraticPolynomialRootFinder.findRoots)
   }
-
-  private val equalityThreshold = 1e-100
 
   private case class NeumarkCoefficients(
       G: Double,
